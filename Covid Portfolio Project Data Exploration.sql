@@ -130,18 +130,6 @@ Select *, (rolling_people_vaccinated/population)*100 as percentage_of_population
 From #percent_pop_vaccinated
 
 
---Creating view to store data for later visualizations
-
-Create view percentage_pop_vaccinated 
-as
-Select dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations,
-sum(convert(bigint,vac.new_vaccinations)) over(partition by dea.location order by dea.location, dea.date) as rolling_people_vaccinated
-From PortfolioProject..CovidDeaths dea 
-JOIN PortfolioProject..CovidVaccinations vac
-On dea.location = vac.location
-   and dea.date = vac.date
-Where dea.continent is not null
-
 
 
 
